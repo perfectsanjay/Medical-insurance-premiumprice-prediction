@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Insurance Premium Predictor</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="card" style="width: 100%; margin-top: 50px;">
+                <div class="card-header" style="text-align: center;">
+                    <h1>Medical Insurance Premium Price Predictor</h1>
+                </div>
+                <div class="card-body">
+                    <form method="post" accept-charset="UTF-8">
+                        <div class="row">
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Enter the age</b></label>
+                                <input type="text" class="form-control" name="age">
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Diabetes</b></label>
+                                <select class="form-control" name="diabetes">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Blood Pressure Problems</b></label>
+                                <select class="form-control" name="blood_pressure_problems">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Any Transplants</b></label>
+                                <select class="form-control" name="any_transplants">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Any Chronic Diseases</b></label>
+                                <select class="form-control" name="any_chronic_diseases">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Height(in cm)</b></label>
+                                <input type="text" class="form-control" name="height">
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Weight(in kg)</b></label>
+                                <input type="text" class="form-control" name="weight">
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Known Allergies</b></label>
+                                <select class="form-control" name="known_allergies">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>History of Cancer in Family</b></label>
+                                <select class="form-control" name="history_of_cancer_in_family">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" style="text-align: center;">
+                                <label><b>Number of Major Surgeries</b></label>
+                                <input type="text" class="form-control" name="number_of_major_surgeries">
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button type="button" class="btn btn-primary" onclick="send_data()">Predict</button>
+                        </div>
+                    </form>
+                    <br>
+
+                    <div class="col-md-12" style="text-align: center;">
+                        <h3><span id="prediction"></span></h3>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function send_data() {
+            var fd = new FormData(document.querySelector('form'));
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/predict', true);
+            document.getElementById("prediction").innerHTML = "Predicting Price...";
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        document.getElementById('prediction').innerHTML = "Prediction: " + xhr.responseText;
+                    } else {
+                        document.getElementById('prediction').innerHTML = "Error: " + xhr.statusText;
+                    }
+                }
+            };
+
+            xhr.send(fd);
+        }
+    </script>
+
+    <!-- Bootstrap JS (optional, for some Bootstrap features like dropdowns) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
