@@ -1,4 +1,6 @@
-#!/Users/sanjaysingh/Desktop/insurance/env/bin/python3.11
+#!/bin/sh
+'''exec' "/Users/sanjaysingh/Desktop/insurance 2/env/bin/python3.11" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys
